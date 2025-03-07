@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import Nav from "./Nav/Nav";
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import Homepage from "./Homepage/Homepage";
+import Login from "./Login/Login";
+import Register from "./Login/Register";
+import Dashboard from "./Dashboard/Dashboard";
+import BBPOUParticipationForm from "./Dashboard/Forms/BBPOUParticipationForm";
+import BBPSAcessRequestFormBARF from "./Dashboard/Forms/BBPSAcessRequestFormBARF";
+import SponsorBankForm from "./Dashboard/Forms/SponsorBankForm";
+import Admin from "./Admin/Admin";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+      <BrowserRouter>
+          <div className="App">
+              <Nav/>
+              <Routes>
+                  <Route path="/" element={<Homepage/>}/>
+                  <Route path="/login" element={<Login/>}/>
+                  <Route path="/register" element={<Register/>}/>
+                  <Route path="/dashboard" element={<Dashboard/>}/>
+                  <Route path="/dashboard/form1" element={<BBPOUParticipationForm />}/>
+                  <Route path="/dashboard/form2" element={<BBPSAcessRequestFormBARF />}/>
+                  <Route path="/dashboard/form3" element={<SponsorBankForm />}/>
+                  <Route path="/admin" element={<Admin />}/>
+              </Routes>
+          </div>
+      </BrowserRouter>
   );
 }
 

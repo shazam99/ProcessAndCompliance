@@ -1,0 +1,94 @@
+import React from "react";
+
+export default function SponsorBankLetter({ values }) {
+return (
+<div className="p-6 max-w-2xl mx-auto border rounded-lg shadow-lg bg-white">
+<h2 className="text-xl font-bold text-center">On Sponsor Bank's Letter Head</h2>
+<p className="mt-4">To</p>
+<p>The Head,</p>
+<p>Bharat Bill Payment Service (BBPS)</p>
+<p>National Payments Corporation of India,</p>
+<p>Mumbai</p>
+<p>Dear Sir,</p>
+
+<p className="mt-4">Subject: Undertaking to act as Sponsor bank & Net Debit Cap allocation for <strong>"NameOfBBPOU"</strong></p>
+
+<p className="mt-4">We, the <strong>"Name of Sponsor Bank"</strong> (Name of Sponsor Bank) having its registered office at <strong>"Sponsor bank address"</strong> have agreed to become the Sponsor for <strong>NameOfBBPOU</strong> (Name of BBPOU).</p>
+
+<p className="mt-4">We do hereby declare and undertake to NPCI that:</p>
+<ol className="list-decimal ml-5">
+<li>We shall abide by all applicable rules and regulations of Bharat Bill Payment System (BBPS).</li>
+<li>The Net Debit Cap per Settlement cycle for <strong>NameOfBBPOU</strong> should be allocated at Rs. <strong>"Net debit cap per settlement cycle for BBPOU</strong> out of the total Net Debit Cap for BBPS of Rs. <strong>"Total net debit cap for BBPS"</strong> allocated to us.</li>
+</ol>
+
+<div className="mt-6">
+<p><strong>Date:</strong> "timestamp"</p>
+</div>
+
+<div className="mt-4">
+<p><strong>Place:</strong> "place"</p>
+</div>
+
+<p className="mt-6 text-right font-bold">(Authorized Signatory)</p>
+</div>
+);
+}
+
+
+
+
+
+
+
+
+
+const doc = new jsPDF();
+
+doc.setFont("arial");
+doc.setFontSize(12);
+
+doc.setFont("arial", "bold");
+doc.text("On Sponsor Bank's Letter Head", 80, 20);
+doc.setFont("arial", "normal");
+
+doc.text("To", 20, 40);
+doc.text("The Head,", 20, 50);
+doc.text("Bharat Bill Payment Service (BBPS)", 20, 60);
+doc.text("National Payments corporation of India,", 20, 70);
+doc.text("Mumbai", 20, 80);
+doc.text("Dear Sir,", 20, 90);
+
+doc.setFont("arial", "bold");
+doc.text(`Subject: Undertaking to act as Sponsor bank & Net Debit Cap allocation for ${values['NameOfBBPOU']}`, 20, 110);
+const textWidth = doc.getTextWidth(`Subject: Undertaking to act as Sponsor bank & Net Debit Cap allocation for ${values['NameOfBBPOU']}`);
+doc.setLineWidth(0.5);
+doc.line(20, 112, 20 + textWidth, 112);
+
+doc.setFont("arial", "normal");
+
+// Fix the formatting issue - remove extra spaces in text
+const bodyText = `
+We, the ${values['Name of Sponsor Bank']} (Name of Sponsor Bank) having its registered
+office at ${values['Sponsor bank address']} have agreed to become the Sponsor
+for ${values['NameOfBBPOU']} (Name of BBPOU).
+
+We do hereby declared and undertake to NPCI that:
+
+1) We shall abide by all applicable rules, regulations of Bharat Bill Payment System (BBPS).
+
+2) The Net Debit Cap per Settlement cycle for ${values['NameOfBBPOU']} (Name of BBPOU)
+should be allocated at Rs. ${values['Net debit cap per settlement cycle for BBPOU']} out
+of the total Net Debit Cap for BBPS of Rs. ${values['Total net debit cap for BBPS']} allocated to us.`;
+
+// Using splitTextToSize to handle text wrapping properly
+doc.text(bodyText, 20, 130);
+
+doc.setFont("arial", "bold");
+doc.text(`Date `, 20, 200);
+doc.setFont("arial", "normal");
+doc.text(`: ${values['timestamp']}`, 30, 200);
+doc.setFont("arial", "bold");
+doc.text("Place: ", 20, 220);
+doc.text("(Authorized Signatory.) ", 140, 220);
+
+doc.save("Bank_Reference_Letter.pdf");
