@@ -12,7 +12,7 @@ const handleSponsorBankForm = ({ formData = {} } = {}) => {
     // Configure PDF options
     const options = {
         margin: 10,
-        filename: 'BBPOU_Participation_Form.pdf',
+        filename: 'Sponsor_Bank_Form.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -35,7 +35,7 @@ const handleSponsorBankForm = ({ formData = {} } = {}) => {
 const generateFormHTML = (formData) => {
     return `
     <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
   <title>Undertaking to Act as Sponsor Bank</title>
   <style>
@@ -76,7 +76,7 @@ const generateFormHTML = (formData) => {
       <li>The Net Debit Cap per settlement cycle for <b>${formData['NameOfBBPOU'] || ''}</b> should be allocated at Rupees <b>${formData['Net debit cap per settlement cycle for BBPOU'] || ''}</b> out of the total Net Debit Cap of Rs. <b>${formData['Total net debit cap for BBPS'] || ''}</b> allocated to us.</li>
     </ol><br><br><br>
     <p>Date: <b>${formData['timestamp'] || ''}</b></p>
-    <p>Place: <b>${formData.place || ''}</b></p>
+    <p>Place: <b>${formData['place'] || ''}</b></p>
     <p class="signature">(Authorized Signatory)</p>
   </div>
 </body>

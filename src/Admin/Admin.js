@@ -1,4 +1,4 @@
-import React, {use, useContext, useState} from 'react';
+import React, {use, useContext, useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {Card, Button, Typography, Divider, Drawer, List, Avatar, Empty} from 'antd';
 import {
@@ -38,7 +38,9 @@ const Admin = () => {
         },
     ];
 
-    const plainOptions = ['All Forms Submitted', 'Forms Signed', 'form Data correct'];
+    const plainOptions = ['All Forms Submitted', 'Forms Signed', 'Form Data correct'];
+
+    const [defaultOptions, setDefaultOptions] = useState([]);
 
 
     const [show, setShow] = useState(false);
@@ -46,24 +48,35 @@ const Admin = () => {
     function handleItemClick() {
         setShow(!show);
     }
-    // console.log(allCheckedValue);
+
+    const handleMarket = (radio) => {
+
+
+        setDefaultOptions((prev) => {
+
+            if (!prev.includes(radio)) {
+                return [...prev, radio]; // Add item to the array
+            }
+
+
+            return prev; // Ensure state is not undefined
+        });
+
+        if(defaultOptions.length >= 2){
+            setShowMarketing(true);
+        }
+        console.log(defaultOptions);
+    };
 
     return (<>
             <div className="dashboard-container" style={{maxWidth: "1000px"}}>
                 <Title level={2} className="dashboard-title">Admin Interface</Title>
                 {show &&
                     <Checkbox.Group
-                        style={{display: "flex", justifyContent: "center"}}
+                        style={{ display: "flex", justifyContent: "center" }}
                         options={plainOptions}
-                        defaultValue={['']}
-                        onChange={(checkedValues) => {
-                            const allChecked = plainOptions.every(option => checkedValues.includes(option));
-                            if(allChecked){
-                                setShowMarketing(true);
-                            }else{
-                                setShowMarketing(false);
-                            }
-                        }}
+                        value={defaultOptions} // Use "value" instead of "defaultValue" to control state
+                        onChange={setDefaultOptions} // Ensure checkboxes are updated when clicked
                     />}
                 <Divider/>
 
@@ -73,15 +86,15 @@ const Admin = () => {
                 {show && <div className="forms-container">
                     <Card className="form-card">
                         <Title level={5}>BBPOU Participation Form</Title>
-                        <NavLink to="/dashboard/form1">
-                            <Button color="primary" variant="filled">
-                                View form
-                            </Button>
-                        </NavLink>
+                        <Button color="primary" variant="filled"
+                            onClick={() => window.open("/BBPOU participation form.pdf", '_blank')}
+                        >
+                            View form
+                        </Button>
                         <Divider/>
                         <div>
-                            <Button color="primary" variant="text">
-                                Accept <CheckCircleOutlined/>
+                            <Button color="primary" variant="text" onClick={() => handleMarket('All Forms Submitted')}>
+                                Accept <CheckCircleOutlined />
                             </Button>
                             <Button style={{color: '#f5222d', backgroundColor: '#fff', border: "none"}}>
                                 Reject <CloseCircleOutlined/>
@@ -92,14 +105,14 @@ const Admin = () => {
                     <Card className="form-card">
 
                         <Title level={5}>BBPS- Acess Request Form</Title>
-                        <NavLink to="/dashboard/form2">
-                            <Button color="primary" variant="filled">
-                                View form
+                            <Button color="primary" variant="filled"
+                                    onClick={() => window.open("/BARF Form.pdf", '_blank')}
+                            >View form
                             </Button>
-                        </NavLink>
+
                         <Divider/>
                         <div>
-                            <Button color="primary" variant="text">
+                            <Button color="primary" variant="text" onClick={() => handleMarket('Forms Signed')}>
                                 Accept <CheckCircleOutlined/>
                             </Button>
                             <Button style={{color: '#f5222d', backgroundColor: '#fff', border: "none"}}>
@@ -111,14 +124,13 @@ const Admin = () => {
                     <Card className="form-card">
 
                         <Title level={5}>Sponsor Bank Form</Title>
-                        <NavLink to="/dashboard/form3">
-                            <Button color="primary" variant="filled">
-                                View form
+                            <Button color="primary" variant="filled"
+                                    onClick={() => window.open("/sponsorBank.pdf", '_blank')}
+                            >View form
                             </Button>
-                        </NavLink>
                         <Divider/>
                         <div>
-                            <Button color="primary" variant="text">
+                            <Button color="primary" variant="text" onClick={() => handleMarket('Form Data correct')}>
                                 Accept <CheckCircleOutlined/>
                             </Button>
                             <Button style={{color: '#f5222d', backgroundColor: '#fff', border: "none"}}>

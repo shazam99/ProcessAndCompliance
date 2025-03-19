@@ -95,7 +95,7 @@ const generateFormHTML = (formData) => {
         </tr>
         <tr>
             <th style="border: 1px solid black; padding: 10px; text-align: left;">Name of Sponsor Bank (if applicable)</th>
-            <td style="border: 1px solid black; padding: 10px;"><b>${formData['Sponsor Bank']}</b></td>
+            <td style="border: 1px solid black; padding: 10px;"><b>${formData['Sponsor Bank'] || ''}</b></td>
         </tr>
         <tr>
             <th style="border: 1px solid black; padding: 10px; text-align: left;">Address of Data Center</th>

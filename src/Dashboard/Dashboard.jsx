@@ -107,9 +107,11 @@ const Dashboard = () => {
                         <Button color="primary" variant="text" disabled={Object.keys(formData.form1).length === 0} onClick={handleParticipationformDownload}>
                             Download Form<CloudDownloadOutlined/>
                         </Button>
-                        <Button color="primary" variant="text" disabled={Object.keys(formData.form1).length === 0}>
-                            Upload Signed Form<CaretRightOutlined />
-                        </Button>
+                        <Upload>
+                            <Button color="primary" icon={<UploadOutlined />} variant="text" disabled={Object.keys(formData.form1).length === 0}>
+                                Upload Signed Form<CaretRightOutlined />
+                            </Button>
+                        </Upload>
                     </div>
 
                 </Card>
@@ -128,9 +130,11 @@ const Dashboard = () => {
                         <Button color="primary" variant="text" disabled={Object.keys(formData.barf).length === 0} onClick={handleBarfFormDownload}>
                             Download Form<CloudDownloadOutlined/>
                         </Button>
-                        <Button color="primary" variant="text" disabled={Object.keys(formData.barf).length === 0}>
-                            Upload Signed Form<CaretRightOutlined />
-                        </Button>
+                        <Upload>
+                            <Button color="primary" icon={<UploadOutlined />} variant="text" disabled={Object.keys(formData.barf).length === 0}>
+                                Upload Signed Form<CaretRightOutlined />
+                            </Button>
+                        </Upload>
                     </div>
                 </Card>
 
@@ -139,7 +143,7 @@ const Dashboard = () => {
                     <Title level={5}>Sponsor Bank Form</Title>
                     <p>Share your work experience</p>
                     <NavLink to="/dashboard/form3">
-                        <Button color="primary" variant="filled" disabled={Object.keys(formData.sponsorBankForm).length !== 0}>
+                        <Button color="primary"  variant="filled" disabled={Object.keys(formData.sponsorBankForm).length !== 0}>
                             Fill the form
                         </Button>
                     </NavLink>
@@ -148,9 +152,11 @@ const Dashboard = () => {
                         <Button color="primary" variant="text" disabled={Object.keys(formData.sponsorBankForm).length === 0} onClick={handleSponsorBankFormDownload}>
                             Download Form<CloudDownloadOutlined />
                         </Button>
-                        <Button color="primary" variant="text" disabled={Object.keys(formData.sponsorBankForm).length === 0}>
-                            Upload Signed Form<CaretRightOutlined />
-                        </Button>
+                        <Upload>
+                            <Button color="primary" icon={<UploadOutlined />} variant="text" disabled={Object.keys(formData.sponsorBankForm).length === 0}>
+                                Upload Signed Form<CaretRightOutlined />
+                            </Button>
+                        </Upload>
                     </div>
 
                 </Card>
@@ -159,10 +165,6 @@ const Dashboard = () => {
             <Divider/>
             {showMarketing &&
                 <div style={{display:"flex", justifyContent:"center", gap:"10px"}}>
-                    <Upload {...journey}>
-                        <Button icon={<UploadOutlined />}>Upload User Journey</Button>
-                    </Upload>
-
                     <Upload {...screen}>
                         <Button icon={<UploadOutlined />}>Upload Screens</Button>
                     </Upload>
