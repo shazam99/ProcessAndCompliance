@@ -9,6 +9,7 @@ import BBPOUParticipationForm from "./Dashboard/Forms/BBPOUParticipationForm";
 import BBPSAcessRequestFormBARF from "./Dashboard/Forms/BBPSAcessRequestFormBARF";
 import SponsorBankForm from "./Dashboard/Forms/SponsorBankForm";
 import Admin from "./Admin/Admin";
+import Compliance from "./Compliance/Compliance";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
                   <Route path="/dashboard/form2" element={<BBPSAcessRequestFormBARF />}/>
                   <Route path="/dashboard/form3" element={<SponsorBankForm />}/>
                   <Route path="/admin" element={<Admin />}/>
+                  <Route path="/compliance" element={<Compliance />}/>
+
+
               </Routes>
           </div>
       </BrowserRouter>

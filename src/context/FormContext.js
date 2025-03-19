@@ -17,12 +17,19 @@ export const FormProvider = ({ children }) => {
         });
     };
 
+    const [showMarketing, setShowMarketing] = useState(false);
+
+    const [journeyName, setJourneyName] = useState("");
+    const [screenName, setScreenName] = useState("");
+
+    console.log(journeyName + " " +screenName);
+
     useEffect(() => {
         console.log('Updated sponsorBankForm:', formData.sponsorBankForm);
     }, [formData]);
 
     return (
-        <FormContext.Provider value={{ formData, updateFormData }}>
+        <FormContext.Provider value={{ formData, updateFormData, showMarketing, setShowMarketing,journeyName, setJourneyName, screenName, setScreenName}}>
             {children}
         </FormContext.Provider>
     );

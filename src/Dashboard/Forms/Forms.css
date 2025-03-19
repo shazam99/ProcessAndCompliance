@@ -6,6 +6,7 @@
     /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
     border-radius: 8px;
     border: none;
+    position: relative;
 }
 
 Form{
@@ -55,4 +56,10 @@ Form{
 /* Styling for success messages */
 .ant-message-success {
     font-size: 16px;
+}
+
+.alert{
+    position: fixed !important;
+    top:10% !important;
+    right:10% !important;
 }

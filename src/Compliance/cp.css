@@ -1,0 +1,9 @@
+.cp-main{
+    max-width: 800px;
+    margin: 100px auto;
+}
+.cp-title {
+    text-align: center;
+    margin: 0;
+    color: #3C67B1 !important;
+}

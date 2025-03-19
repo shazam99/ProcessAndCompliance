@@ -1,10 +1,11 @@
-import React, {useContext, useEffect} from 'react';
-import {Form, Input, Button, Card, Typography, Select, message, Row, Col} from 'antd';
+import React, {useContext, useEffect, useState} from 'react';
+import {Form, Input, Button, Card, Typography, Select, message, Row, Col, Alert} from 'antd';
 import {
     ArrowLeftOutlined, IdcardOutlined
 } from '@ant-design/icons';
 import {useNavigate} from 'react-router-dom';
 import {FormContext} from "../../context/FormContext";
+import './Forms.css';
 
 const {Title} = Typography;
 
@@ -12,14 +13,28 @@ const BBPOUParticipationForm = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
     const { formData,updateFormData } = useContext(FormContext);
+    const [errorMessage,setErrorMessage] = useState(null);
+    const [showAlert,setShowAlert] = useState(false);
 
 
     const onFinish = (values) => {
         console.log('Form values:', values);
         message.success('Personal information submitted successfully!');
-        updateFormData('form1', values);
-        console.log('Form values:', formData);
-        handleBack();
+        if(values['PAN no'] !== "KEBPS3701A"){
+            setErrorMessage("Invalid PAN number: " + values['PAN no']);
+            setShowAlert(true);
+        }
+        else if(values['GSTIN'] !== "22KEBPS3701A1Z5"){
+            setErrorMessage("Invalid GSTIN number: " + values['GSTIN']);
+            setShowAlert(true);
+        }
+        else {
+            setErrorMessage(null);
+            setShowAlert(false);
+            updateFormData('form1', values);
+            console.log('Form values:', formData);
+            handleBack();
+        }
     };
 
     useEffect(() => {
@@ -43,6 +58,15 @@ const BBPOUParticipationForm = () => {
                 BBPOU Participation Form
             </Title>
         </div>
+
+        {showAlert && <Alert className={"alert"}
+            message="Error: "
+            description={errorMessage}
+            type="error"
+            closable
+            onClose={() => {setShowAlert(false); setErrorMessage(null)}}
+        />
+        }
 
         <Form
             form={form}
@@ -89,17 +113,17 @@ const BBPOUParticipationForm = () => {
                 <Col xs={24} sm={12}>
                     <Form.Item label="Type of Entity" name="Type of Entity" rules={[{required: true}]}>
                         <Select>
-                            <Select.Option value="demo">Bank</Select.Option>
-                            <Select.Option value="demo">Non-Bank</Select.Option>
+                            <Select.Option value="Bank">Bank</Select.Option>
+                            <Select.Option value="Non-Bank">Non-Bank</Select.Option>
                         </Select>
                     </Form.Item>
                 </Col>
                 <Col xs={24} sm={12}>
-                    <Form.Item label="Type of Entity" name="Type of BBPOU" rules={[{required: true}]}>
+                    <Form.Item label="Type of BBPOU" name="Type of BBPOU" rules={[{required: true}]}>
                         <Select>
-                            <Select.Option value="demo">Customer BBPOU</Select.Option>
-                            <Select.Option value="demo">Biller BBPOU</Select.Option>
-                            <Select.Option value="demo">Both</Select.Option>
+                            <Select.Option value="Customer BBPOU">Customer BBPOU</Select.Option>
+                            <Select.Option value="Biller BBPOU">Biller BBPOU</Select.Option>
+                            <Select.Option value="Both">Both</Select.Option>
                         </Select>
                     </Form.Item>
                 </Col>
@@ -132,7 +156,7 @@ const BBPOUParticipationForm = () => {
 
             <Row gutter={16}>
                 <Col xs={24} sm={12}>
-                    <Form.Item label="PAN no" name="PAN no" rules={[{required: true, min: 5, max: 5, message: 'Inavlid PAN'}]}>
+                    <Form.Item label="PAN no" name="PAN no" rules={[{required: true}]}>
                         <Input placeholder=""/>
                     </Form.Item>
                 </Col>
